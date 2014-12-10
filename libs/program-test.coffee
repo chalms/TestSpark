@@ -4,28 +4,36 @@
  # @link
  # @license ISC
 
-Predicate = (predicate) ->
-  _this["p"] = (condition) ->
+InputVar = (input) ->
+   # input.tes
+
+Condition = (predicate) ->
+  _this["E"] = (condition) ->
     (if args then (predicate(args)) else false)
-  _this["p`"] = (args) ->
+  _this["U"] = (args) ->
     (if args then (not predicate(args)) else true)
   _this
 
-PredicateList = (list) ->
+
+Predicate = (list) ->
   _this = list
   for key of list
     _this[key] = (
       if Number.isInteger(list[key])
-        new Predicate(predicates[key])
+        new Condition(predicates[key])
       else
-        new Predicate(list[key])
+        new Condition(list[key])
       return
     )
   _this
 
+
+TestUnit = (predicates) ->
+  return new Predicate(predicates)
+
 Requirement = (requirement) ->
   _this = requirement
-  _this.predicates = new PredicateList(requirement.predicates)
+  _this.testunit = new TestUnit(requirement.predicates)
   _this
 
 requirements = require("./requirements.json")

@@ -7,29 +7,47 @@ _ = require('lodash')
 
 class MultilateralPartioning
   inputs: {}
-  semaphores = {}
-  locked = true
+
+  validateInputItem: (input) ->
+    unless (input.equivalenceClasses)
+      throw new Error("Input has no equivalence classes attr")
+    else unless (input.name)
+      throw new Error("Input has no name attr")
+    else
+      input.equivalenceClasses
 
   addInput: (input) ->
-    if (@inputs.hasOwnProperty(input.name))
-      a = @inputs[input.name].equivalenceClasses
-      b = input.equivalenceClasses
-      c = _.merge(a, b)
-      console.log(e)
+    equClasses = @validateInputItem(input)
+    if (@inputs.hasOwnProperty(name))
+      currentClasses = @inputs[input.name].equivalenceClasses
+      _.merge(currentClasses, equClasses)
     else
-      @inputs[input.name] = input.equivalenceClasses
+      equClasses
     return
+
+  addEquivalence: (predicate) ->
+    next = []
+    for i in @equivalence
+      next.push(@equivalence[i] ^ predicate)
+    @equivalence = _.merge(@equivalence, next)
+
+  loopThroughDifference: (result, fromBefore) ->
+    i = 0
+    while i < result.length
+      hasSeen = fromBefore.indexOf(result[i])
+      addEquivalence(result[i]) if (hasSeen is -1)
+      i += 1
 
   addInputClasses: (inputClasses) ->
     @inputs = @inputs || new Object({})
     for input of inputClasses
-      @addInput(input)
+      result = @addInput(input)
+      fromBefore = @inputs[input.name].equivalenceClasses[i]
+      loopThroughDifference(result, fromBefore)
 
-  addEquivalence: (inputClasses) ->
+  addEquivalenceClasses: (inputClasses) ->
     @equivalenceClasses = @equivalenceClasses || new Array()
     @addInputClasses(inputClasses)
 
   constructor: (inputClasses) ->
-    @addEquivalence(inputClasses)
-    @
-
+    @addEquivalenceClasses(inputClasses)

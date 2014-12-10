@@ -3,3 +3,7 @@
  # @version v1.0.0
  # @link
  # @license ISC
+
+class Partition
+
+  constructor: (partition) ->
