@@ -2,10 +2,9 @@
 # @version v1.0.0
 # @link
 # @license ISC
-
 _ = require('lodash')
 
-class MultilateralPartioning
+class MultilateralPartitioning
   inputs: {}
 
   validateInputItem: (input) ->
@@ -25,11 +24,21 @@ class MultilateralPartioning
       equClasses
     return
 
-  addEquivalence: (predicate) ->
-    next = []
-    for i in @equivalence
-      next.push(@equivalence[i] ^ predicate)
-    @equivalence = _.merge(@equivalence, next)
+  buildCombinedEquivalence: (equivalence, ec) ->
+    next = {}
+    next[equivalence.name] = equivalence[i]
+    next[ec.name] = ec
+    return next
+
+  buildAllCombinedEquivalences: (equivalenceClasses, ec) ->
+    allNewEquivalences = []
+    for equivalence of equivalenceClasses
+      allNewEquivalences.push(buildCombinedEquivalence(equivalence, ec))
+    return allNewEquivalences
+
+  addEquivalence: (ec) ->
+    allNewEquivalences = buildAllCombinedEquivalences(@equivalenceClasses, ec)
+    @equivalenceClasses = allNewEquivalences
 
   loopThroughDifference: (result, fromBefore) ->
     i = 0
@@ -51,3 +60,5 @@ class MultilateralPartioning
 
   constructor: (inputClasses) ->
     @addEquivalenceClasses(inputClasses)
+
+module.exports = MultilateralPartitioning

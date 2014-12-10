@@ -1,11 +1,11 @@
-var MultilateralPartioning, _;
+var MultilateralPartitioning, _;
 
 _ = require('lodash');
 
-MultilateralPartioning = (function() {
-  MultilateralPartioning.prototype.inputs = {};
+MultilateralPartitioning = (function() {
+  MultilateralPartitioning.prototype.inputs = {};
 
-  MultilateralPartioning.prototype.validateInputItem = function(input) {
+  MultilateralPartitioning.prototype.validateInputItem = function(input) {
     if (!input.equivalenceClasses) {
       throw new Error("Input has no equivalence classes attr");
     } else if (!input.name) {
@@ -15,7 +15,7 @@ MultilateralPartioning = (function() {
     }
   };
 
-  MultilateralPartioning.prototype.addInput = function(input) {
+  MultilateralPartitioning.prototype.addInput = function(input) {
     var currentClasses, equClasses;
     equClasses = this.validateInputItem(input);
     if (this.inputs.hasOwnProperty(name)) {
@@ -26,18 +26,30 @@ MultilateralPartioning = (function() {
     }
   };
 
-  MultilateralPartioning.prototype.addEquivalence = function(predicate) {
-    var i, next, _i, _len, _ref;
-    next = [];
-    _ref = this.equivalence;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      i = _ref[_i];
-      next.push(this.equivalence[i] ^ predicate);
-    }
-    return this.equivalence = _.merge(this.equivalence, next);
+  MultilateralPartitioning.prototype.buildCombinedEquivalence = function(equivalence, ec) {
+    var next;
+    next = {};
+    next[equivalence.name] = equivalence[i];
+    next[ec.name] = ec;
+    return next;
   };
 
-  MultilateralPartioning.prototype.loopThroughDifference = function(result, fromBefore) {
+  MultilateralPartitioning.prototype.buildAllCombinedEquivalences = function(equivalenceClasses, ec) {
+    var allNewEquivalences, equivalence;
+    allNewEquivalences = [];
+    for (equivalence in equivalenceClasses) {
+      allNewEquivalences.push(buildCombinedEquivalence(equivalence, ec));
+    }
+    return allNewEquivalences;
+  };
+
+  MultilateralPartitioning.prototype.addEquivalence = function(ec) {
+    var allNewEquivalences;
+    allNewEquivalences = buildAllCombinedEquivalences(this.equivalenceClasses, ec);
+    return this.equivalenceClasses = allNewEquivalences;
+  };
+
+  MultilateralPartitioning.prototype.loopThroughDifference = function(result, fromBefore) {
     var hasSeen, i, _results;
     i = 0;
     _results = [];
@@ -51,7 +63,7 @@ MultilateralPartioning = (function() {
     return _results;
   };
 
-  MultilateralPartioning.prototype.addInputClasses = function(inputClasses) {
+  MultilateralPartitioning.prototype.addInputClasses = function(inputClasses) {
     var fromBefore, input, result, _results;
     this.inputs = this.inputs || new Object({});
     _results = [];
@@ -63,17 +75,19 @@ MultilateralPartioning = (function() {
     return _results;
   };
 
-  MultilateralPartioning.prototype.addEquivalenceClasses = function(inputClasses) {
+  MultilateralPartitioning.prototype.addEquivalenceClasses = function(inputClasses) {
     this.equivalenceClasses = this.equivalenceClasses || new Array();
     return this.addInputClasses(inputClasses);
   };
 
-  function MultilateralPartioning(inputClasses) {
+  function MultilateralPartitioning(inputClasses) {
     this.addEquivalenceClasses(inputClasses);
   }
 
-  return MultilateralPartioning;
+  return MultilateralPartitioning;
 
 })();
 
-//# sourceMappingURL=maps/multilateral-partitioning.js.map
+module.exports = MultilateralPartitioning;
+
+//# sourceMappingURL=maps/js/multilateral-partitioning.js.map

@@ -35,7 +35,7 @@ gulp.task "compress", ->
     .pipe(sourcemaps.init())
     .pipe(coffee(bare: true))
     .on("error", gutil.log)
-    .pipe(sourcemaps.write("./maps"))
+    .pipe(sourcemaps.write("./maps/js"))
     .pipe(gulp.dest("./compressed"))
 
 

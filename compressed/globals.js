@@ -16,4 +16,4 @@
   return module.exports = this;
 }).call(this);
 
-//# sourceMappingURL=maps/globals.js.map
+//# sourceMappingURL=maps/js/globals.js.map
