@@ -1,0 +1,48 @@
+{
+  "name": "jsTest",
+  "version": "1.0.0",
+  "description": "Test Case Generator and Test Analyzer",
+  "main": "tests.js",
+  "directories": {
+    "docs": "docs",
+    "fixtures": "fixtures",
+    "libs": "libs",
+    "logs": "logs",
+    "outputs": "logs/outputs",
+    "compressed": "compressed",
+    "maps": "maps"
+  },
+  "scripts": {
+    "test": "runtests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "y"
+  },
+  "keywords": [
+    "auto",
+    "test",
+    "spec"
+  ],
+  "author": "Chalms",
+  "license": "ISC",
+  "devDependencies": {
+    "coffee-script": "^1.8.0",
+    "colors": "^1.0.3",
+    "gulp": "^3.8.10",
+    "gulp-changed": "^1.1.0",
+    "gulp-coffee": "^2.2.0",
+    "gulp-coffeelint": "^0.4.0",
+    "gulp-coverage": "^0.3.32",
+    "gulp-header": "^1.2.2",
+    "gulp-inject": "^1.0.2",
+    "gulp-run-sequence": "^0.3.2",
+    "gulp-shell": "^0.2.11",
+    "gulp-sourcemaps": "^1.2.8",
+    "gulp-util": "^3.0.1",
+    "gulp-watch": "^3.0.0",
+    "gulp-webserver": "^0.8.8",
+    "lodash": "^2.4.1",
+    "run-sequence": "^1.0.2"
+  }
+}
