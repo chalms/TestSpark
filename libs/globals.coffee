@@ -1,4 +1,4 @@
-((->
+
   Array.runloop = (funct) ->
     if @length > 0
       _$ = @
@@ -8,5 +8,4 @@
       )(@))
   Object.runloop = (funct) ->
     Object.keys(@).runloop(funct)
-  module.exports = this
-).call(@))
+  module.exports = @
