@@ -1,0 +1,1 @@
+{"version":3,"sources":["bor.coffee"],"names":[],"mappings":"AAEA,IAAA,gBAAA;;AAAA;gCAAA;;0BAAA;;IAAA,CAAA","file":"bor.js","sourceRoot":"/source/","sourcesContent":["\n\nclass BorConstraintSet\n\n"]}

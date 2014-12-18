@@ -46,7 +46,7 @@ EquivalenceClass = (function() {
           arr[2] = arr[9].pop();
           p[0] = arr[2] === arr[7];
           p[1] = arr[2] === arr[8];
-          arr[2] = constraint(arr[2]);
+          arr[2] = c[i](arr[2]);
           if (arr[2] ^ ((p[0] && !arr[0]) ^ (p[1] && !arr[1]))) {
             throw new Error("e:1");
           } else {

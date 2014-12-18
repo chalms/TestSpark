@@ -29,9 +29,9 @@ gulp.task "add-header", ->
     .pipe(gulp.dest('./libs'))
 
 gulp.task "compress", ->
-  gulp.watch "./libs/*.coffee", ->
-    return gulp.src("./libs/*.coffee")
-    .pipe(changed("./libs/*.coffee"))
+  gulp.watch "./libs/**/*.coffee", ->
+    return gulp.src("./libs/**/*.coffee")
+    .pipe(changed("./libs/**/*.coffee"))
     .pipe(sourcemaps.init())
     .pipe(coffee(bare: true))
     .on("error", gutil.log)

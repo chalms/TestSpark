@@ -2,6 +2,7 @@
 # @version v1.0.0
 # @link
 # @license ISC
+
 _ = require('lodash')
 
 class MultilateralPartitioning
